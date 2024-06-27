@@ -1,0 +1,21 @@
+<div class="album py-5" *ngIf="members.length>0 ; else noItem">
+    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4 row-cols-lg-5 g-3">
+        <ng-container *ngFor="let item of members">
+          <!-- <app-card-member [member]="item"></app-card-member> -->
+           <app-member-card-shared  [member]="item"></app-member-card-shared>
+        </ng-container>
+      </div>
+      <div *ngIf="pagination">
+        <pagination
+          [totalItems]="pagination.totalCount"
+          [(ngModel)]="pagination.currentPage"
+          (pageChanged)="pageChanged($event)"
+        ></pagination>
+      </div>
+      
+</div>
+<ng-template #noItem>
+  <div class="alert alert-danger" role="alert">
+    NO Items Found
+  </div>
+</ng-template>

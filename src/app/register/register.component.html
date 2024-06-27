@@ -1,0 +1,363 @@
+<section class="vh-100 w-100">
+  <div class="container h-100 w-100">
+    <div class="row d-flex justify-content-center align-items-center h-100">
+      <div class="col-lg-12 col-xl-11">
+        <div class="card text-black" style="border-radius: 25px">
+          <div class="card-body p-md-5">
+            <div class="row justify-content-center">
+              <div class="col-md-10 col-lg-6 col-xl-5 order-2 order-lg-1">
+                <p class="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4">
+                  Sign up
+                </p>
+                <form [formGroup]="form" (ngSubmit)="onSubmit()">
+                  <!-- USERNAME -->
+                  <div class="d-flex flex-row align-items-center mb-4">
+                    <i class="fas fa-user fa-lg me-3 fa-fw"></i>
+                    <div class="form-outline flex-fill mb-0">
+                      <input
+                        type="text"
+                        formControlName="username"
+                        placeholder="username"
+                        [ngClass]="{
+                          'is-invalid':
+                            form.get('username')!.invalid &&
+                            form.get('username')!.touched &&
+                            form.get('username')!.dirty
+                        }"
+                        class="form-control"
+                      />
+
+                      <ng-container
+                        *ngIf="
+                          form.get('username')!.hasError! &&
+                          form.get('username')!.dirty &&
+                          form.get('username')!.touched &&
+                          form.get('username')!.invalid
+                        "
+                      >
+                        <div
+                          class="text-danger"
+                          *ngIf="form.get('username')!.errors!['required']"
+                        >
+                          Username is required
+                        </div>
+
+                        <div
+                          class="text-danger"
+                          *ngIf="
+                            form.get('username')!.errors!['uniqueUsername']
+                          "
+                        >
+                          Username is already taken
+                        </div>
+                      </ng-container>
+                    </div>
+                  </div>
+
+                  <!-- PASSWORD -->
+                  <div class="d-flex flex-row align-items-center mb-4">
+                    <i class="fas fa-key fa-lg me-3 fa-fw"></i>
+                    <div class="form-outline flex-fill mb-0">
+                      <input
+                        type="password"
+                        formControlName="password"
+                        placeholder="password"
+                        [ngClass]="{
+                          'is-invalid':
+                            form.get('password')!.invalid &&
+                            form.get('password')!.touched &&
+                            form.get('password')!.dirty
+                        }"
+                        class="form-control"
+                      />
+                      <ng-container
+                        *ngIf="
+                          form.get('password')!.hasError! &&
+                          form.get('password')!.dirty &&
+                          form.get('password')!.touched &&
+                          form.get('password')!.invalid
+                        "
+                      >
+                        <div
+                          class="text-danger"
+                          *ngIf="form.get('password')!.errors!['required']"
+                        >
+                          password is required
+                        </div>
+                        <div
+                          class="text-danger"
+                          *ngIf="form.get('password')!.errors!['minlength']"
+                        >
+                          password must be at least
+                          {{
+                            form.get("password")!.errors!["minlength"]
+                              .requiredLength
+                          }}
+                          characters
+                          {{
+                            form.get("password")!.errors!["minlength"]
+                              .actualLength
+                          }}
+                        </div>
+                      </ng-container>
+                    </div>
+                  </div>
+                  <!-- CONFIRM PASSWORD -->
+
+                  <div class="d-flex flex-row align-items-center mb-4">
+                    <i class="fas fa-key fa-lg me-3 fa-fw"></i>
+                    <div class="form-outline flex-fill mb-0">
+                      <input
+                        type="password"
+                        formControlName="passwordConfirm"
+                        placeholder="passwordConfirm"
+                        class="form-control"
+                      />
+                      <ng-container
+                        *ngIf="
+                          form.get('passwordConfirm')!.hasError! &&
+                          form.get('passwordConfirm')!.dirty &&
+                          form.get('passwordConfirm')!.touched &&
+                          form.get('passwordConfirm')!.invalid
+                        "
+                      >
+                        <div
+                          class="text-danger"
+                          *ngIf="
+                            form.get('passwordConfirm')!.errors!['required']
+                          "
+                        >
+                          Password Confirm is required
+                        </div>
+                        <div
+                          class="text-danger"
+                          *ngIf="
+                            form.get('passwordConfirm')!.errors!['minlength']
+                          "
+                        >
+                          Password Confirm must be at least
+                          {{
+                            form.get("passwordConfirm")!.errors!["minlength"]
+                              .requiredLength
+                          }}
+                          characters
+                          {{
+                            form.get("passwordConfirm")!.errors!["minlength"]
+                              .actualLength
+                          }}
+                        </div>
+                      </ng-container>
+                      <!-- Validator Form -->
+                      <div
+                        class="text-danger"
+                        *ngIf="showValidatorForMatchPassword()"
+                      >
+                        Password Confirm must match password
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- KNOWN AS -->
+                  <div class="d-flex flex-row align-items-center mb-4">
+                    <i class="fas fa-user fa-lg me-3 fa-fw"></i>
+                    <div class="form-outline flex-fill mb-0">
+                      <input
+                        placeholder="please enter knownAs"
+                        type="text"
+                        [ngClass]="{
+                          'is-invalid':
+                            form.get('knownAs')!.invalid &&
+                            form.get('knownAs')!.touched &&
+                            form.get('knownAs')!.dirty
+                        }"
+                        class="form-control"
+                        formControlName="knownAs"
+                      />
+                      <ng-container
+                        *ngIf="
+                          form.get('knownAs')!.hasError! &&
+                          form.get('knownAs')!.dirty &&
+                          form.get('knownAs')!.touched &&
+                          form.get('knownAs')!.invalid
+                        "
+                      >
+                        <div
+                          class="text-danger"
+                          *ngIf="form.get('knownAs')!.errors!['required']"
+                        >
+                          knownAs is required
+                        </div>
+                      </ng-container>
+                    </div>
+                  </div>
+                  <!-- CITY -->
+                  <div class="d-flex flex-row align-items-center mb-4">
+                    <i class="fas fa-mountain-city fa-lg me-3 fa-fw"></i>
+                    <div class="form-outline flex-fill mb-0">
+                      <input
+                        placeholder="please enter city"
+                        type="text"
+                        [ngClass]="{
+                          'is-invalid':
+                            form.get('city')!.invalid &&
+                            form.get('city')!.touched &&
+                            form.get('city')!.dirty
+                        }"
+                        class="form-control"
+                        formControlName="city"
+                      />
+                      <ng-container
+                        *ngIf="
+                          form.get('city')!.hasError! &&
+                          form.get('city')!.dirty &&
+                          form.get('city')!.touched &&
+                          form.get('city')!.invalid
+                        "
+                        >!
+                        <div
+                          class="text-danger"
+                          *ngIf="form.get('city')!.errors!['required']"
+                        >
+                          city is required
+                        </div>
+                      </ng-container>
+                    </div>
+                  </div>
+                  <!--COUNTRY  -->
+                  <div class="d-flex flex-row align-items-center mb-4">
+                    <i class="fas fa-city fa-lg me-3 fa-fw"></i>
+                    <div class="form-outline flex-fill mb-0">
+                      <input
+                        placeholder="please enter country"
+                        type="text"
+                        [ngClass]="{
+                          'is-invalid':
+                            form.get('country')!.invalid &&
+                            form.get('country')!.touched &&
+                            form.get('country')!.dirty
+                        }"
+                        class="form-control"
+                        formControlName="country"
+                      />
+                      <ng-container
+                        *ngIf="
+                          form.get('country')!.hasError! &&
+                          form.get('country')!.dirty &&
+                          form.get('country')!.touched &&
+                          form.get('country')!.invalid
+                        "
+                      >
+                        <div
+                          class="text-danger"
+                          *ngIf="form.get('country')!.errors!['required']"
+                        >
+                          country is required
+                        </div>
+                      </ng-container>
+                    </div>
+                  </div>
+                  <!--DATE OF BIRTH  -->
+                  <div class="d-flex flex-row align-items-center mb-4">
+                    <i class="fas fa-calendar-alt fa-lg me-3 fa-fw"></i>
+                    <div class="form-outline flex-fill mb-0">
+                      <input
+                        placeholder="please enter dateOfBirth"
+                        type="text"
+                        [bsConfig]="bsConfig"
+                        bsDatepicker
+                        [maxDate]="maxDate"
+                        [ngClass]="{
+                          'is-invalid':
+                            form.get('dateOfBirth')!.invalid &&
+                            form.get('dateOfBirth')!.touched &&
+                            form.get('dateOfBirth')!.dirty
+                        }"
+                        class="form-control"
+                        formControlName="dateOfBirth"
+                      />
+                      <ng-container
+                        *ngIf="
+                          form.get('dateOfBirth')!.hasError! &&
+                          form.get('dateOfBirth')!.dirty &&
+                          form.get('dateOfBirth')!.touched &&
+                          form.get('dateOfBirth')!.invalid
+                        "
+                      >
+                        <div
+                          class="text-danger"
+                          *ngIf="form.get('dateOfBirth')!.errors!['required']"
+                        >
+                          dateOfBirth is required
+                        </div>
+                      </ng-container>
+                    </div>
+                  </div>
+                  <!-- GENDER -->
+                  <div class="d-flex flex-row align-items-center mb-4">
+                    <i class="fas fa-user fa-lg me-3 fa-fw"></i>
+                    <div class="form-outline flex-fill mb-0">
+                      <div class="form-check">
+                        <input
+                          class="form-check-input"
+                          type="radio"
+                          name="gender"
+                          id="exampleRadios1"
+                          value="0"
+                          formControlName="gender"
+                        />
+
+                        <label class="form-check-label" for="exampleRadios1">
+                          female
+                        </label>
+                      </div>
+                      <div class="form-check">
+                        <input
+                          class="form-check-input"
+                          type="radio"
+                          name="gender"
+                          id="exampleRadios2"
+                          value="1"
+                          formControlName="gender"
+                        />
+
+                        <label class="form-check-label" for="exampleRadios2">
+                          male
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="d-flex justify-content-center mx-4 mb-3 mb-lg-4">
+                    <button
+                      [disabled]="form.invalid"
+                      type="button"
+                      (click)="onSubmit()"
+                      class="btn btn-primary btn-sm m-1"
+                    >
+                      Register
+                    </button>
+                    <button
+                      type="button"
+                      class="btn btn-warning btn-sm m-1"
+                      (click)="onCancel()"
+                    >
+                      Cancel
+                    </button>
+                  </div>
+                </form>
+              </div>
+              <div
+                class="col-md-10 col-lg-6 col-xl-7 d-flex align-items-center order-1 order-lg-2"
+              >
+                <img
+                  src="https://mdbootstrap.com/img/Photos/new-templates/bootstrap-registration/draw1.png"
+                  class="img-fluid"
+                  alt="Sample image"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

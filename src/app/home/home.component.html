@@ -1,0 +1,16 @@
+<div class="container d-flex justify-content-center align-items-center" style="height: 100vh;">
+  <div *ngIf="!registerMode">
+    <h1>Welcome to chat room</h1>
+    <div class="text-center">
+      <button class="btn btn-primary" (click)="toggleMode()">Register</button>
+    </div>
+  </div>
+
+  <div *ngIf="registerMode" class="w-100">
+    <div class="row justify-content-center w-100">
+      <div class="col-12 ">
+        <app-register (cancel)="toggleMode()"></app-register>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,13 @@
+:root{
+    --color-background:#bde0fe;
+    --font-base:"B Nazanin" , "JetBrains Mono"
+
+}
+body{
+    font-family: var(--font-base) !important;
+    background-color: var( --color-background) !important;
+
+}
+.lightbg{
+    background-color: var( --color-background);
+}

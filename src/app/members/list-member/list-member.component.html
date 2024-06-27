@@ -1,0 +1,129 @@
+<div class="album py-5">
+  <form #form="ngForm" (ngSubmit)="onSubmit(form)">
+    <div class="row">
+      <div class="col-md-4">
+        <div class="input-group mb-3">
+          <span class="input-group-text">min Age</span>
+          <input
+            value="18"
+            min="18"
+            name="minAge"
+            [(ngModel)]="params.minAge"
+            type="number"
+            class="form-control"
+            placeholder="min age"
+          />
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="input-group mb-3">
+          <span class="input-group-text">max Age</span>
+          <input
+            value="150"
+            max="150"
+            name="maxAge"
+            [(ngModel)]="params.maxAge"
+            type="number"
+            class="form-control"
+            placeholder="max age"
+          />
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="input-group mb-3">
+          <span class="input-group-text">gender</span>
+          <select
+            [(ngModel)]="params.gender"
+            name="gender"
+            class="form-control"
+          >
+            <ng-container *ngFor="let gender of genders | showEnum">
+              <option [value]="gender?.key">{{ gender?.value }}</option>
+            </ng-container>
+          </select>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-4">
+        <div class="input-group mb-3">
+          <span class="input-group-text">order By</span>
+          <select
+            [(ngModel)]="params.orderBy"
+            name="orderBy"
+            class="form-control"
+          >
+            <ng-container *ngFor="let order of orderBy | showEnum">
+              <option [value]="order?.key">{{ order.value }}</option>
+            </ng-container>
+          </select>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="input-group mb-3">
+          <span class="input-group-text">type Sort</span>
+          <select
+            [(ngModel)]="params.typeSort"
+            name="typeSort"
+            class="form-control"
+          >
+            <ng-container *ngFor="let type of typeSort | showEnum">
+              <option [value]="type?.key">
+                {{ type.value }}
+              </option>
+            </ng-container>
+          </select>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="input-group mb-3">
+          <span class="input-group-text">page Size</span>
+          <select
+            [(ngModel)]="params.pageSize"
+            name="pageSize"
+            class="form-control"
+          >
+            <option value="8">8</option>
+            <option value="15">15</option>
+            <option value="30">30</option>
+            <option value="50">50</option>
+            <option value="100">100</option>
+          </select>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-4">
+        <div class="input-group mb-3">
+          <span class="input-group-text">search</span>
+          <input type="text" class="form-control" placeholder="search" />
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="input-group mb-3">
+          <button class="btn btn-primary" type="submit">
+            <span class="fas fa-search"></span> search
+          </button>
+          <button (click)="onClear()" class="btn btn-danger">
+            <span class="fas fa-trash"></span> clear
+          </button>
+        </div>
+      </div>
+    </div>
+  </form>
+  <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4 row-cols-lg-5 g-3">
+    <ng-container *ngFor="let item of members">
+      <!-- <app-card-member [member]="item"></app-card-member> -->
+       <app-member-card-shared  [member]="item"></app-member-card-shared>
+    </ng-container>
+  </div>
+  <div *ngIf="pagination">
+    <div class="d-flex justify-content-center mt-3">
+    <pagination
+      [totalItems]="pagination.totalCount"
+      [(ngModel)]="pagination.currentPage"
+      (pageChanged)="pageChanged($event)"
+    ></pagination>
+  </div>
+  </div>
+</div>
